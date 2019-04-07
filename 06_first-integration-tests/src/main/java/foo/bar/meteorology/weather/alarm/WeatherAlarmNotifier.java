@@ -13,7 +13,21 @@ public class WeatherAlarmNotifier {
 
     public WeatherAlarmLevel raiseLevelIfNeccessary() {
         Weather weather = weatherService.getWeather();
+       WeatherAlarmLevel weatherAlarmLevel=WeatherAlarmLevel.ALL_OK;
+       int countAlarms=0;
+       if (weather.getTemprature()>35){
+           weatherAlarmLevel=WeatherAlarmLevel.SECOND_LEVEL;
+           countAlarms++;
+       }
+       if (weather.getRainfall()>100){
+           weatherAlarmLevel=WeatherAlarmLevel.THIRD_LEVEL;
+           countAlarms++;
+       }
+       if (weather.getWindSpeed()>100){
+           weatherAlarmLevel=WeatherAlarmLevel.SECOND_LEVEL;
+           countAlarms++;
+       }
 
-        return WeatherAlarmLevel.ALL_OK;
+        return countAlarms>=2? WeatherAlarmLevel.FIRST_LEVEL:weatherAlarmLevel;
     }
 }

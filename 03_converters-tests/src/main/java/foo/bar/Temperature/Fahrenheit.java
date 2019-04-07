@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 
 public class Fahrenheit implements TemperatureUnit {
 
-    public static final BigDecimal FAHREHEIT_TO_CELSIUS =new BigDecimal("-17.2222222").setScale(SCALE,ROUNDING_MODE);
-    public static final BigDecimal FAHRENHEIT_TO_KELVIN =new BigDecimal("255.927778").setScale(SCALE,ROUNDING_MODE);
+    public static final BigDecimal FAHREHEIT_TO_CELSIUS =new BigDecimal("-32").setScale(SCALE,ROUNDING_MODE);
 
 
     private final BigDecimal value;
@@ -21,7 +20,14 @@ public class Fahrenheit implements TemperatureUnit {
     public BigDecimal getValue() {
         return value;
     }
+    public Celsius toCelsius(){
+        return new Celsius(value.add(Fahrenheit.FAHREHEIT_TO_CELSIUS).multiply(BigDecimal.valueOf(0.555555))
+                .setScale(SCALE,ROUNDING_MODE));
+    }
 
+    public Kelvin toKelvin(){
+        return new Kelvin(toCelsius().getValue().subtract(Kelvin.KELVIN_TO_CELSIUS));
+    }
 
 
 

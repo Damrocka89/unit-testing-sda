@@ -16,12 +16,13 @@ public class Celsius implements TemperatureUnit {
     public BigDecimal getValue() {
         return value;
     }
-// public Inch toInches() {
-//        return new Inch(value.divide(Inch.INCH_TO_CENTIMETER, SCALE, ROUNDING_MODE));
-//    }
 
     public Fahrenheit toFahreheit(){
-        
+        return new Fahrenheit(value.multiply(BigDecimal.valueOf(1.8)).subtract(Fahrenheit.FAHREHEIT_TO_CELSIUS).setScale(SCALE,ROUNDING_MODE));
+    }
+
+    public Kelvin toKelvin(){
+        return new Kelvin(value.subtract(Kelvin.KELVIN_TO_CELSIUS).setScale(SCALE,ROUNDING_MODE));
     }
 
 }

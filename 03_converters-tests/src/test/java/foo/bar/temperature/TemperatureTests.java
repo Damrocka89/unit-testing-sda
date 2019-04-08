@@ -19,6 +19,7 @@ public class TemperatureTests {
         assertEquals(-32.00, c.getValue());
     }
 
+
     @Test
     void shouldConvertToZeroKelvinValue() {
         Kelvin k = new Celsius(BigDecimal.ZERO).toKelvin();

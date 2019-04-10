@@ -8,7 +8,8 @@ public class Dart501 {
     private ArrayList<Integer> listOfUnscoredHits = new ArrayList<>();
     private ArrayList<Integer> listOfHits = new ArrayList<>();
     private int hitCount = 0;
-    private int shotInRound = 0;
+
+
 
     public boolean hit(int points, CombinationsOfShield combination) {
         checkIfValueIsCorrect(points, combination);
@@ -18,26 +19,22 @@ public class Dart501 {
         int sum = getSumOfUnscoredHits();
 
         hitCount++;
-        shotInRound++;
+
 
         if (score - sum == 0) {
             calculateAndUpdateScore();
-            System.out.println("Game Over");
         } else if (score - sum < 0) {
             scoresHigherThanGlobalScoreToRemove();
         }
-        if (shotInRound == 3) {
+        if (listOfUnscoredHits.size() == 3) {
             calculateAndUpdateScore();
-            shotInRound = 0;
         }
         return true;
     }
 
     private void scoresHigherThanGlobalScoreToRemove() {
-        while (shotInRound > 0) {
-            int index = listOfUnscoredHits.size() - shotInRound;
-            listOfUnscoredHits.remove(index);
-            shotInRound--;
+        while (listOfUnscoredHits.size() > 0) {
+            listOfUnscoredHits.remove(0);
         }
     }
 
@@ -48,7 +45,7 @@ public class Dart501 {
     }
 
     private void calculateAndUpdateScore() {
-        for (int i = listOfUnscoredHits.size() - shotInRound; i < listOfUnscoredHits.size();) {
+        for (int i = 0; i < listOfUnscoredHits.size();) {
             int temporary=listOfUnscoredHits.get(i);
             score = score - temporary;
             listOfHits.add(temporary);
@@ -74,5 +71,13 @@ public class Dart501 {
 
     public int score() {
         return score;
+    }
+
+    public int getShotInRound() {
+        return listOfUnscoredHits.size();
+    }
+
+    public int getNumberOfHits() {
+        return hitCount;
     }
 }

@@ -3,8 +3,7 @@ package foo.bar.Dart;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static foo.bar.Dart.CombinationsOfShield.BULLSEYE;
-import static foo.bar.Dart.CombinationsOfShield.MIDDLE25;
+import static foo.bar.Dart.CombinationsOfShield.*;
 
 public class Dart501Test {
 
@@ -12,9 +11,7 @@ public class Dart501Test {
 
     @Test
     public void testAll50Game(){
-        for (int i = 0; i < 9; i++) {
-            dart.hit(50, BULLSEYE);
-        }
+        playerThrowBullseye(9);
         Assertions.assertEquals(51, dart.score());
     }
 
@@ -25,13 +22,24 @@ public class Dart501Test {
 
     @Test
     public void threeShotsHigherThanScore(){
-        for (int i = 0; i < 9; i++) {
-            dart.hit(50, BULLSEYE);
-        }
+        playerThrowBullseye(9);
         dart.hit(25, MIDDLE25);
         dart.hit(25, MIDDLE25);
         dart.hit(25, MIDDLE25);
         Assertions.assertEquals(51, dart.score());
+    }
+
+    private void playerThrowBullseye(int n) {
+        for (int i = 0; i < n; i++) {
+            dart.hit(50, BULLSEYE);
+        }
+    }
+
+    @Test
+    public void testWin(){
+        playerThrowBullseye(10);
+        dart.hit(1,SINGLE);
+        Assertions.assertEquals(0, dart.score());
     }
 
 }
